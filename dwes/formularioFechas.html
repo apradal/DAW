@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="ISO-8859-1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>Validador de fechas</h1>
+        <p>El programa validar&aacute; la fecha y la mostrar&aacute; si es correcta</p>
+        <form action="formularioFechas.php" method="post">
+            Introduzca d&iacute;a de la semana:
+            <select name="semana">
+                <option value="0">Lunes</option>
+                <option value="1">Martes</option>
+                <option value="2">Miercoles</option>
+                <option value="3">Jueves</option>
+                <option value="4">Viernes</option>
+                <option value="5">Sabado</option>
+                <option value="6">Domingo</option>
+            </select><br>
+            Introduzca d&iacute;a del mes (num&eacute;rico): <input type="text" name="dia"><br>
+            Introduzca mes: 
+            <select name="mes">
+                <option value="0">Enero</option>
+                <option value="1">Febrero</option>
+                <option value="2">Marzo</option>
+                <option value="3">Abril</option>
+                <option value="4">Mayo</option>
+                <option value="5">Junio</option>
+                <option value="6">Julio</option>
+                <option value="7">Agosto</option>
+                <option value="8">Septiembre</option>
+                <option value="9">Octubre</option>
+                <option value="10">Noviembre</option>
+                <option value="11">Diciembre</option>
+            </select><br>
+            <input type="submit" value="Enviar" name="enviar">
+        </form>
+    </body>
+</html>
