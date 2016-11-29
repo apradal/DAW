@@ -10,6 +10,7 @@ $user = filter_input(INPUT_POST,'usuario',FILTER_SANITIZE_STRING);
 $pass = filter_input(INPUT_POST,'password',FILTER_SANITIZE_STRING);
 ?>
 <h1>Descarga de ficheros</h1>
+<h3>Prueba de subida github</h3>
 <form action="descarga.php" method="post" enctype="multipart/form-data">
     <fieldset>
         <legend><b>Datos de usuario</b></legend>
