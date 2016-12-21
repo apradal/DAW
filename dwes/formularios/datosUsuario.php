@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
-        .error {color: orange};
+        .error {color: red};
     </style>
 </head>
 <body>
