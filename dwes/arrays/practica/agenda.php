@@ -24,14 +24,12 @@ Si el nombre que se introdujo ya existe en la agenda y no se indica número de t
 //Sanitizo los datos recibidos
 $contact = filter_input(INPUT_POST, 'contact', FILTER_SANITIZE_STRING);
 $phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_STRING);
-$contacts = $_POST['contacts'];
-$phones = $_POST['phones'];
 /**
  * Imprime los contactos del array
  * @param $array
  */
 function printArrayContact($array){
-    foreach ($array as $key){
+    foreach ($array as $key => $value){
         echo '<li>'.$key.'</li><br/>';
     }
 }
@@ -59,33 +57,38 @@ function checkContacts($contacts, $contact){
     <?php
     if ($_POST['add'] && empty($contact)) {
         echo '<span class="error">Error: el contacto no puede estar vacio</span>';
-    } if ($_POST['add'] && !empty($contact) && !empty($phone)) {
+    } else if ($_POST['add'] && !empty($contact)) {
+        $contacts = $_POST['contacts'];
+        $phones = $_POST['phones'];
+        for ($i = 0; $i < count($contacts);$i++){
+            $contactsMult[$contacts[$i]] = $phones[$i];
+        }
         if (!checkContacts($contacts, $contact)){
-            $contacts[] = $contact;
-            $phones[] = $phone;
-            for ($i = 0; $i < count($contacts);$i++){
-                $contactsMult[$contacts[$i]] = $phones[$i];
-            }
+            $contactsMult[$contact] = $phone;
+        } else if (checkContacts($contacts, $contact) && empty($phone)){
+            unset($contactsMult[$contact]);
+        } else if (checkContacts($contacts, $contact)){
+            $contactsMult[$contact] = $phone;
         }
     }
     ?>
     <h3>Contactos</h3>
     <ul>
         <?php
-        printArrayContact($contacts);
+        printArrayContact($contactsMult);
         ?>
     </ul>
     <h3>Telefonos</h3>
     <ul>
         <?php
-        printArrayPhones($phones);
+        printArrayPhones($contactsMult);
         ?>
     </ul>
     <form action="<?php $_SERVER['PHP_SELF']?>" method="post">
         <fieldset>
             <legend><b>Añadir contacto</b></legend>
-            <label for="contacto">Contacto: <input type="text" name="contact" value="<?php echo $contact ?>" id="contact"></label>
-            <label for="phone">Teléfono: <input type="number" name="phone" value="<?php echo $phone ?>" id="phone"></label><br/><br/>
+            <label for="contacto">Contacto: <input type="text" name="contact" id="contact"></label>
+            <label for="phone">Teléfono: <input type="number" name="phone" id="phone"></label><br/><br/>
             <?php
             foreach ($contactsMult as $key => $value){
                 echo '<input type="hidden" value="'.$key.'" name="contacts[]"/>';
