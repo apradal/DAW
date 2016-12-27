@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
 </head>
 <body>
 <?php
@@ -23,7 +28,7 @@ Si el nombre que se introdujo ya existe en la agenda y no se indica número de t
 */
 //Sanitizo los datos recibidos
 $contact = filter_input(INPUT_POST, 'contact', FILTER_SANITIZE_STRING);
-$phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_STRING);
+$phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_NUMBER_INT);
 /**
  * Imprime los contactos del array
  * @param $array
@@ -47,9 +52,11 @@ function checkContact(){
     echo '<span class="error">Error: el contacto no puede estar vacio</span>';
 }
 function checkContacts($contacts, $contact){
+    $exists = false;
     foreach ($contacts as $key) {
-        return ($key == $contact) ? true : false;
+        if ($key == $contact) $exists = true;
     }
+    return $exists;
 }
 ?>
 <section>
@@ -57,18 +64,23 @@ function checkContacts($contacts, $contact){
     <?php
     if ($_POST['add'] && empty($contact)) {
         echo '<span class="error">Error: el contacto no puede estar vacio</span>';
+        $contacts = $_POST['contacts'];
+        $phones = $_POST['phones'];
+        for ($i = 0; $i < count($contacts);$i++){
+            $contactsMult[$contacts[$i]] = $phones[$i];
+        }
     } else if ($_POST['add'] && !empty($contact)) {
         $contacts = $_POST['contacts'];
         $phones = $_POST['phones'];
         for ($i = 0; $i < count($contacts);$i++){
             $contactsMult[$contacts[$i]] = $phones[$i];
         }
-        if (!checkContacts($contacts, $contact)){
+        if (!checkContacts($contacts, $contact) && !empty($phone)){
+            $contactsMult[$contact] = $phone;
+        } else if(checkContacts($contacts, $contact) && !empty($phone)){
             $contactsMult[$contact] = $phone;
         } else if (checkContacts($contacts, $contact) && empty($phone)){
             unset($contactsMult[$contact]);
-        } else if (checkContacts($contacts, $contact)){
-            $contactsMult[$contact] = $phone;
         }
     }
     ?>
