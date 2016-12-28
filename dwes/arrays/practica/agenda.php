@@ -4,8 +4,45 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
+        body{
+            padding: 0;
+            margin: 0;
+            background-color: #ffffff;
+        }
         .error {
             color: red;
+            display: block;
+        }
+        #display{
+            max-width: 900px;
+            margin: auto;
+            background-color: #EBE8DE;
+        }
+        #display h1{
+            background-color: black;
+            margin: auto;
+            text-align: center;
+            color: #E56038;
+            font-size: 2em;
+        }
+        .contactos{
+            display: inline-block;
+            margin-left: 100px;
+            width: 300px;
+        }
+        .contactos h3{
+            color: #000000;
+            font-size: 1.5em;
+            border-bottom: 1px solid black;
+        }
+        .contactos ul{
+            list-style: none;
+            margin-left: -40px;
+        }
+        #form{
+            max-width: 900px;
+            margin: auto;
+            background-color: #EBE8DE;
         }
     </style>
 </head>
@@ -28,6 +65,7 @@ Si el nombre que se introdujo ya existe en la agenda y no se indica número de t
 */
 //Sanitizo los datos recibidos
 $contact = filter_input(INPUT_POST, 'contact', FILTER_SANITIZE_STRING);
+$contact = strtolower($contact);
 $phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_NUMBER_INT);
 /**
  * Imprime los contactos del array
@@ -48,9 +86,6 @@ function printArrayPhones($array){
         echo '<li>'.$value.'</li><br/>';
     }
 }
-function checkContact(){
-    echo '<span class="error">Error: el contacto no puede estar vacio</span>';
-}
 function checkContacts($contacts, $contact){
     $exists = false;
     foreach ($contacts as $key) {
@@ -59,7 +94,7 @@ function checkContacts($contacts, $contact){
     return $exists;
 }
 ?>
-<section>
+<section id="display">
     <h1>Agenda</h1>
     <?php
     if ($_POST['add'] && empty($contact)) {
@@ -75,32 +110,38 @@ function checkContacts($contacts, $contact){
         for ($i = 0; $i < count($contacts);$i++){
             $contactsMult[$contacts[$i]] = $phones[$i];
         }
-        if (!checkContacts($contacts, $contact) && !empty($phone)){
+        if (!checkContacts($contacts, $contact) && (!empty($phone) || $phone === '0')){
             $contactsMult[$contact] = $phone;
-        } else if(checkContacts($contacts, $contact) && !empty($phone)){
+        } else if(checkContacts($contacts, $contact) && (!empty($phone) || $phone === '0')){
             $contactsMult[$contact] = $phone;
         } else if (checkContacts($contacts, $contact) && empty($phone)){
             unset($contactsMult[$contact]);
         }
     }
     ?>
-    <h3>Contactos</h3>
-    <ul>
-        <?php
-        printArrayContact($contactsMult);
-        ?>
-    </ul>
-    <h3>Telefonos</h3>
-    <ul>
-        <?php
-        printArrayPhones($contactsMult);
-        ?>
-    </ul>
+    <article class="contactos">
+        <h3>Contactos</h3>
+        <ul>
+            <?php
+            printArrayContact($contactsMult);
+            ?>
+        </ul>
+    </article>
+    <article class="contactos">
+        <h3>Teléfonos</h3>
+        <ul>
+            <?php
+            printArrayPhones($contactsMult);
+            ?>
+        </ul>
+    </article>
+</section>
+<section id="form">
     <form action="<?php $_SERVER['PHP_SELF']?>" method="post">
         <fieldset>
             <legend><b>Añadir contacto</b></legend>
             <label for="contacto">Contacto: <input type="text" name="contact" id="contact"></label>
-            <label for="phone">Teléfono: <input type="number" name="phone" id="phone"></label><br/><br/>
+            <label for="phone">Teléfono: <input type="number" name="phone" id="phone"></label>
             <?php
             foreach ($contactsMult as $key => $value){
                 echo '<input type="hidden" value="'.$key.'" name="contacts[]"/>';
