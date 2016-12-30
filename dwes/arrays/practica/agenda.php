@@ -46,6 +46,10 @@
             margin-left: -40px;
         }
 
+        .contactos li {
+            line-height: 35px;
+        }
+
         #form {
             max-width: 900px;
             margin: auto;
@@ -71,28 +75,6 @@ Si el nombre que se introdujo ya existe en la agenda y no se indica número de t
  se eliminará de la agenda la entrada correspondiente a ese nombre.
 */
 
-/**
- * Imprime los contactos del array
- * @param $array
- */
-function printArrayContact($array)
-{
-    foreach ($array as $key => $value) {
-        echo '<li>' . $key . '</li><br/>';
-    }
-}
-
-/**
- * Imprime los telefonos de los contactos del array
- * @param $array
- */
-function printArrayPhones($array)
-{
-    foreach ($array as $key => $value) {
-        echo '<li>' . $value . '</li><br/>';
-    }
-}
-
 function checkContacts($contacts, $contact)
 {
     foreach ($contacts as $key) {
@@ -108,7 +90,6 @@ function checkContacts($contacts, $contact)
 <section id="display">
     <h1>Agenda</h1>
     <?php
-    //Sanitizo los datos recibidos
     $contact = isset($_POST['contact']) ? strtolower(filter_input(INPUT_POST, 'contact', FILTER_SANITIZE_STRING)) : null;
     $phone = isset($_POST['phone']) ? filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_NUMBER_INT) : null;
     $contactsMult = array();
@@ -117,39 +98,34 @@ function checkContacts($contacts, $contact)
         $contacts = isset($_POST['contacts']) ? $_POST['contacts'] : array();
         $phones = isset($_POST['phones']) ? $_POST['phones'] : array();
 
-        if (empty($contact)) {
-            $error = 'Error: el contacto no puede estar vacio';
-            for ($i = 0; $i < count($contacts); $i++) {
-                $contactsMult[$contacts[$i]] = $phones[$i];
-            }
-        } else {
-            for ($i = 0; $i < count($contacts); $i++) {
-                $contactsMult[$contacts[$i]] = $phones[$i];
-            }
-            if (!checkContacts($contacts, $contact) && (!empty($phone) || $phone === '0')) {
+        for ($i = 0; $i < count($contacts); $i++) {
+            $contactsMult[$contacts[$i]] = $phones[$i];
+        }
+        if (!empty($contact)) {
+            if (!empty($phone)) {
                 $contactsMult[$contact] = $phone;
-            } else if (checkContacts($contacts, $contact) && (!empty($phone) || $phone === '0')) {
-                $contactsMult[$contact] = $phone;
-            } else if (checkContacts($contacts, $contact) && empty($phone)) {
+            } else if (checkContacts($contacts, $contact)) {
                 unset($contactsMult[$contact]);
             }
+        } else {
+            $error = 'Error: el contacto no puede estar vacio';
         }
     }
     ?>
     <article class="contactos">
         <h3>Contactos</h3>
         <ul>
-            <?php
-            printArrayContact($contactsMult);
-            ?>
+            <?php foreach ($contactsMult as $key => $value) : ?>
+                <li><?php echo $key ?> </li>
+            <?php endforeach ?>
         </ul>
     </article>
     <article class="contactos">
         <h3>Teléfonos</h3>
         <ul>
-            <?php
-            printArrayPhones($contactsMult);
-            ?>
+            <?php foreach ($contactsMult as $key => $value) : ?>
+                <li><?php echo $value ?></li>
+            <?php endforeach ?>
         </ul>
     </article>
 </section>
