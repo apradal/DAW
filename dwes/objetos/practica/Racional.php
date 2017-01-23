@@ -1,5 +1,5 @@
 <?php
-class Racional{
+class Racional extends OperacionRacional {
 
     private $num , $den;
 
@@ -37,8 +37,90 @@ class Racional{
 
     }
 
-    public function suma(Racional $b){
+    /**
+     * @param Racional $b
+     * @return string
+     * calcula la suma de dos fracciones
+     */
+    public function suma (Racional $b) {
+        if ($this->getDen() == $b->getDen()){
+            $numResultado = $this->getNum() + $b->getNum();
+            $denResultado = $this->getDen();
+            $resultado = new Racional($numResultado,$denResultado);
+            return $resultado->getNum().'/'.$resultado->getDen();
+        } else{
+            $numResultado = ($this->getNum() * $b->getDen()) + ($b->getNum() * $this->getDen());
+            $denResultado = $this->getDen() * $b->getDen();
+            $resultado = new Racional($numResultado,$denResultado);
+            return $resultado->getNum().'/'.$resultado->getDen();
+        }
 
+    }
+
+    /**
+     * @param Racional $b
+     * @return string
+     * Calcula la resta de dos fracciones
+     */
+    public function resta (Racional $b){
+        if ($this->getDen() == $b->getDen()){
+            $numResultado = $this->getNum() - $b->getNum();
+            $denResultado = $this->getDen();
+            $resultado = new Racional($numResultado,$denResultado);
+            return $resultado->getNum().'/'.$resultado->getDen();
+        } else{
+            $numResultado = ($this->getNum() * $b->getDen()) - ($b->getNum() * $this->getDen());
+            $denResultado = $this->getDen() * $b->getDen();
+            $resultado = new Racional($numResultado,$denResultado);
+            return $resultado->getNum().'/'.$resultado->getDen();
+        }
+    }
+
+    /**
+     * @param Racional $b
+     * @return string
+     * Calcula la multiplicacion de dos fracciones
+     */
+    public function multiplicar (Racional $b){
+        $numResultado = $this->getNum() * $b->getNum();
+        $denResultado = $this->getDen() * $b->getDen();
+        $resultado = new Racional($numResultado,$denResultado);
+        return $resultado->getNum().'/'.$resultado->getDen();
+
+        $numResultado = ($this->getNum() * $b->getNum());
+        $denResultado = $this->getDen() * $b->getDen();
+        $resultado = new Racional($numResultado,$denResultado);
+        return $resultado->getNum().'/'.$resultado->getDen();
+    }
+
+    /**
+     * @param Racional $b
+     * @return string
+     * Calsula la division de dos fracciones
+     */
+    public function dividir (Racional $b){
+        $numResultado = $this->getNum() * $b->getDen();
+        $denResultado = $this->getDen() * $b->getNum();
+        $resultado = new Racional($numResultado,$denResultado);
+        return $resultado->getNum().'/'.$resultado->getDen();
+
+        $numResultado = ($this->getNum() * $b->getNum());
+        $denResultado = $this->getDen() * $b->getDen();
+        $resultado = new Racional($numResultado,$denResultado);
+        return $resultado->getNum().'/'.$resultado->getDen();
+    }
+
+    /**
+     * @return mixed
+     * Gets y Setters
+     */
+
+    public function getNum(){
+        return $this->num;
+    }
+
+    public function getDen(){
+        return $this->den;
     }
 
 }
