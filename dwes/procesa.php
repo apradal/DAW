@@ -6,13 +6,13 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <meta charset="ISO-8859-1">
+        <meta charset="UTF-8">
         <title></title>
     </head>
     <body>
         <!-- Crea un formulario HTML para introducir el nombre del alumno y el ciclo que 
          * cursa, a escoger entre ?Desarrollo Web en Entorno Servidor? y ?Desarrollo Web
-         *  en Entorno Cliente?. Envía el resultado a la página ?procesa.php?, que será
+         *  en Entorno Cliente?. Envï¿½a el resultado a la pï¿½gina ?procesa.php?, que serï¿½
          *  la encargada de procesar los datos. -->
         <?php
         if (isset($_POST["enviar"])) {
