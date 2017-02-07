@@ -75,7 +75,7 @@ if (isset($_POST['registrar'])){
     $errorPassword = "";
     $usuario = $_POST['usuario'];
     $password = $_POST['password'];
-    $contador = $_POST['contador'];
+    $contador = ($_POST['contador'] == null) ? 0 : $_POST['contador'];
 
     if (comprobarLongitud($usuario)){
         if (comprobarReg($usuario)){
@@ -86,19 +86,19 @@ if (isset($_POST['registrar'])){
                     header( "refresh:2;url=./index.php" );
                 } else {
                     $errorPassword = "Error: La contraseña deben ser caracteres de la a hasta la z y números";
-                    echo "Intentos fallidos: " . $contador . " (máximo 3 fallos)<br/>";
+                    echo "Intentos fallidos: " . ($contador + 1) . " (máximo 3 fallos)<br/>";
                 }
             } else {
                 $errorPassword = "Error: La longitud de la contraseña solo puede ser de 8 caracteres";
-                echo "Intentos fallidos: " . $contador . " (máximo 3 fallos)<br/>";
+                echo "Intentos fallidos: " . ($contador + 1) . " (máximo 3 fallos)<br/>";
             }
         } else {
             $errorUsuario = "Error: Solo se admiten letras.";
-            echo "Intentos fallidos: " . $contador . " (máximo 3 fallos)<br/>";
+            echo "Intentos fallidos: " . ($contador + 1) . " (máximo 3 fallos)<br/>";
         }
     } else {
         $errorUsuario = "Error: La longitud del usuario solo puede ser de 6 a 10 caracteres";
-        echo "Intentos fallidos: " . $contador . " (máximo 3 fallos)<br/>";
+        echo "Intentos fallidos: " . ($contador + 1) . " (máximo 3 fallos)<br/>";
     }
     if ($errorUsuario != "" || $errorPassword != "") $contador++;
     if ($contador == 3){
