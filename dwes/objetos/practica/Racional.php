@@ -82,15 +82,12 @@ class Racional extends OperacionRacional {
      * Calcula la multiplicacion de dos fracciones
      */
     public function multiplicar (Racional $b){
+
         $numResultado = $this->getNum() * $b->getNum();
         $denResultado = $this->getDen() * $b->getDen();
         $resultado = new Racional($numResultado,$denResultado);
         return $resultado->getNum().'/'.$resultado->getDen();
 
-        $numResultado = ($this->getNum() * $b->getNum());
-        $denResultado = $this->getDen() * $b->getDen();
-        $resultado = new Racional($numResultado,$denResultado);
-        return $resultado->getNum().'/'.$resultado->getDen();
     }
 
     /**
@@ -104,10 +101,6 @@ class Racional extends OperacionRacional {
         $resultado = new Racional($numResultado,$denResultado);
         return $resultado->getNum().'/'.$resultado->getDen();
 
-        $numResultado = ($this->getNum() * $b->getNum());
-        $denResultado = $this->getDen() * $b->getDen();
-        $resultado = new Racional($numResultado,$denResultado);
-        return $resultado->getNum().'/'.$resultado->getDen();
     }
 
     /**

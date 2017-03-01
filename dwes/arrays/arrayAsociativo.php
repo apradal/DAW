@@ -56,6 +56,7 @@ foreach ($artistas as $artista => $info){
         if ($datos == 'años') {
             echo '<span class="años"> (';
             foreach ($valorDatos as $valor){
+                //si es el ultimo valor del array, que lo devuelva sin coma.
                 echo ($valor == end($valorDatos)) ? $valor : $valor . ",";
             }
             echo ')</span>';

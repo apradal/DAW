@@ -35,7 +35,8 @@ abstract class Operacion{
      */
 
     private function conseguirDatos($operacion){
-
+            //preg_split devuelve en un array los valores cortados por los limitadores. -1 devuelve sin limite length y
+            //flag preg_split_delim_capture captura tb los delimitadores del patron. (: + - *)
             $arrayvalor = preg_split('/([\:|\+|\-|\*])/',$operacion, -1, PREG_SPLIT_DELIM_CAPTURE);
             //Una vez partida comprobamos si ha devuelto 1 solo string que significaria que tiene el operador "/"
             if (count($arrayvalor) == 1){

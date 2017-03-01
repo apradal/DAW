@@ -6,7 +6,8 @@ $typesOfNumbers = array(
 
 function checkNumbers($a, $b, $num) {
     switch ($a) {
-        case 0: if ($b == 1) {
+        case 0:
+            if ($b == 1) {
                 echo decoct($num);
             } elseif ($b == 2) {
                 echo dechex($num);
@@ -14,13 +15,15 @@ function checkNumbers($a, $b, $num) {
                 echo $num;
             };
             break;
-        case 1: if ($b == 0) {
+        case 1:
+            if ($b == 0) {
                 echo octdec($num);
             } else {
                 echo $num;
             };
             break;
-        case 2: if ($b == 0) {
+        case 2:
+            if ($b == 0) {
                 echo hexdec($num);
             } else {
                 echo $num;
@@ -44,7 +47,7 @@ function checkNumbers($a, $b, $num) {
                         <option value="<?php echo $key ?>">
                         <?php echo $value ?>
                         </option>
-    <?php endforeach; ?>
+                        <?php endforeach; ?>
                 </select><br>
                 <input type="number" name="number">
                 <p>Introduce el formato al cual quieres que cambie.</p>
@@ -53,7 +56,7 @@ function checkNumbers($a, $b, $num) {
                         <option value="<?php echo $key ?>">
                         <?php echo $value ?>
                         </option>
-    <?php endforeach; ?>
+                        <?php endforeach; ?>
                 </select><br>
                 <input type="submit" value="Enviar" name="send">
             </form>
@@ -66,7 +69,7 @@ function checkNumbers($a, $b, $num) {
                         <option value="<?php echo $key ?>" <?php echo $key == $_POST["convert"] ? 'selected' : '' ?>>
                         <?php echo $value ?>
                         </option>
-    <?php endforeach; ?>
+                        <?php endforeach; ?>
                 </select><br>
                 <input type="number" name="number"> <span style="color: red;">Error, debe introducir un numero</span>
                 <p>Introduce el formato al cual quieres que cambie.</p>
@@ -75,7 +78,7 @@ function checkNumbers($a, $b, $num) {
                         <option value="<?php echo $key ?>" <?php echo $key == $_POST["converted"] ? 'selected' : '' ?>>
                         <?php echo $value ?>
                         </option>
-    <?php endforeach; ?>
+                        <?php endforeach; ?>
                 </select><br>
                 <input type="submit" value="Enviar" name="send">
             </form>
