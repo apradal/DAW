@@ -119,6 +119,9 @@ class Cesta
      */
     public function vaciar(){
 
+        session_start();
+        unset($_SESSION['cesta']);
+
         $this->productos = [];
         $this->unidades = [];
 
