@@ -1,6 +1,6 @@
 <?php
 require_once ('BD.php');
-require_once('Smarty.class.php');
+require_once('./libs/Smarty.class.php');
 $smarty = new Smarty;
 
 $smarty->template_dir = '/var/web/smarty/tienda/templates/';

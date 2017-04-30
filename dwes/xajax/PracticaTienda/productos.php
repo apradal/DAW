@@ -3,7 +3,7 @@ include ('BD.php');
 include ('logoff.php');
 include ('Cesta.php');
 include ('fcesta.php');
-require_once('Smarty.class.php');
+require_once('./libs/Smarty.class.php');
 
 // Recuperamos la información de la sesión
 session_start();
